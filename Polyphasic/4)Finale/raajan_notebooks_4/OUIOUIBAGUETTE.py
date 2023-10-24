@@ -1,15 +1,18 @@
 import subprocess
 
+# installing transformers and sentencepiece
 print("Installation de transformateurs.")
 subprocess.run(["pip", "install", "transformers", "--quiet"])
 subprocess.run(["pip", "install", "sentencepiece", "--quiet"])
 
+# importing the required packages
 print("Importation des packages requis.")
 from transformers import DistilBertTokenizer, TFDistilBertForQuestionAnswering, MBartForConditionalGeneration, MBart50TokenizerFast
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 
+# initialising the distilbert and mbart models
 print("Initialisation du modèle.")
 tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-distilled-squad")
 model = TFDistilBertForQuestionAnswering.from_pretrained("distilbert-base-uncased-distilled-squad")
@@ -17,23 +20,23 @@ transla_tokenizer = MBart50TokenizerFast.from_pretrained("facebook/mbart-large-5
 transla_model = MBartForConditionalGeneration.from_pretrained("facebook/mbart-large-50-many-to-many-mmt")
 
 def translate(text, src_lang, tgt_lang):
-    # Set the source and target languages for the tokenizer
+    # setting the source and target languages for the tokenizer
     transla_tokenizer.src_lang = src_lang
     transla_tokenizer.tgt_lang = tgt_lang
 
-    # Encode the input text
+    # encoding the input text
     encoded_text = transla_tokenizer(text, return_tensors="pt")
 
-    # Generate the translation
+    # generating the translation
     generated_tokens = transla_model.generate(**encoded_text, forced_bos_token_id=transla_tokenizer.lang_code_to_id[tgt_lang])
 
-    # Decode the generated translation and skip special tokens
+    # decoding the generated translation and skip special tokens
     translation = transla_tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
 
     return translation
 
-print("Welcome to OUIOUIBAGUETTE. Your context-based, and also unfortunately French QnA Assistant :)")
-print("As a French assistant, I really do not care if you know French or not.\nThis is the final English sentence you'll see from me.")
+print("\n\n\n\nWelcome to OUIOUIBAGUETTE. Your context-based, and also unfortunately, French QnA Assistant :)")
+print("\n\nAs a French assistant, I really do not care if you know French or not.\nThis is the final English sentence you'll see from me.\n\n")
 
 stopnow = False
 while not stopnow:
@@ -55,6 +58,7 @@ while not stopnow:
         choice = input("Voulez-vous poser d'autres questions? [y/n]:")
         if choice == 'n':
             stopques = True
+        print()
     choice2 = input("Souhaitez-vous utiliser un autre contexte pour les questions? [y/n]:")
     if choice2 == 'n':
         stopnow = True

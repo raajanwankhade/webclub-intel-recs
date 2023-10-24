@@ -1,12 +1,5 @@
 # Task 2B : Developing a Translation Model for Cross-Language Communication
 
-In this task, our objective is to explore and create a language translation model that excels in the domain of cross-language communication and document translation. 
-
-The baseline model provided is a strong foundation, as it involves a seq2seq model fine-tuned for translation tasks. While this model offers a good starting point, there is room for improvement through fine-tuning hyperparameters and using different architecture.
-
-Different forms of experimentation and architectural model building are encouranged irrelevant of the performance of the model. Novel Ideation or Smart Experimentaion is highly appreciated.
-
-## References :
-- [Krish Naik DL](https://www.youtube.com/watch?v=d2kxUVwWWwU)
-- [Machine Translation](https://phrase.com/blog/posts/machine-translation/)
-- [Neural Machine Translation](https://towardsdatascience.com/neural-machine-translation-15ecf6b0b)
+I have tried to use two methods to accomplish the required translation task:
+- Tweaking the hyperparameters of the baseline model, trying to use LSTMs (didn't make it better), then ended up tweaking the hyperparameters like learning rate, number of layers, number of neurons in each layer, etc. and got a better translation than the baseline, but still not realistic and convincing.
+- I then ended up using the MBart pretrained model from HuggingFace's transformer library for the translation task as it provided more convincing results in both English to French and also French to English translation.
